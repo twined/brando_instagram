@@ -1,0 +1,115 @@
+# # `msgid`s in this file come from POT (.pot) files. Do not add, change, or
+# # remove `msgid`s manually here as they're tied to the ones in the
+# # corresponding POT file (with the same domain). Use `mix gettext.extract
+# # --merge` or `mix gettext.merge` to merge POT files into PO files.
+msgid ""
+msgstr ""
+"Language: nb\n"
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.7\n"
+
+#: web/templates/instagram/admin/instagram/index.html.eex:9
+#: web/views/instagram_view.ex:8
+msgid "Approved"
+msgstr "Godkjent"
+
+#: web/models/instagram_image.ex:280
+msgid "Caption"
+msgstr "Bildetekst"
+
+#: web/models/instagram_image.ex:284
+msgid "Created"
+msgstr "Opprettet"
+
+#: web/templates/instagram/admin/instagram/index.html.eex:15
+#: web/views/instagram_view.ex:12
+msgid "Deleted"
+msgstr "Slettet"
+
+#: web/views/instagram_view.ex:14 web/views/instagram_view.ex:23
+msgid "Download failed"
+msgstr "Nedlasting mislyktes"
+
+#: web/models/instagram_image.ex:277
+msgid "ID"
+msgstr "ID"
+
+#: web/models/instagram_image.ex:282
+msgid "Image URL"
+msgstr "Bilde-URL"
+
+#: web/menus/instagram_menu.ex:11
+msgid "Index"
+msgstr "Oversikt"
+
+#: web/controllers/admin/instagram_controller.ex:26
+msgid "Index - Instagram"
+msgstr "Oversikt - Instagram"
+
+#: web/templates/instagram/admin/instagram/index.html.eex:1
+msgid "Index - Instagram images"
+msgstr "Oversikt - Instagrambilder"
+
+#: web/templates/instagram/admin/instagram/index.html.eex:3
+msgid "Index of instagram images. Only photos in the \"approved\"-row will be displayed on the webpage."
+msgstr "Indeks for Instagram-bilder. Kun bilder i \"godkjent\"-raden vises på websiden."
+
+#: web/menus/instagram_menu.ex:10
+msgid "Instagram"
+msgstr "Instagram"
+
+#: web/models/instagram_image.ex:278
+msgid "Instagram ID"
+msgstr "Instagram-ID"
+
+#: web/models/instagram_image.ex:139
+msgid ""
+"Instagram: Instagram API error. Download failed.\n"
+"URL: %{url}"
+msgstr "Instagram: Instagram API feil. Nedlasting mislyktes. URL:% {url}"
+
+#: web/models/instagram_image.ex:281
+msgid "Link"
+msgstr "Lenke"
+
+#: web/templates/instagram/admin/instagram/index.html.eex:9
+#: web/templates/instagram/admin/instagram/index.html.eex:12
+#: web/templates/instagram/admin/instagram/index.html.eex:15
+msgid "Mark as"
+msgstr "Marker som"
+
+#: web/templates/instagram/admin/instagram/index.html.eex:12
+#: web/views/instagram_view.ex:10
+msgid "Rejected"
+msgstr "Avvist"
+
+#: web/templates/instagram/admin/instagram/index.html.eex:5
+msgid "Select photos, and click on your wanted action."
+msgstr "Velg bilder, og klikk på den ønskede handlingen."
+
+#: web/models/instagram_image.ex:285
+msgid "Status"
+msgstr "Status"
+
+#: web/models/instagram_image.ex:283
+msgid "Thumbnail URL"
+msgstr "Miniatyrbilde-URL"
+
+#: web/models/instagram_image.ex:279
+msgid "Type"
+msgstr "Type"
+
+#: web/models/instagram_image.ex:273
+msgid "instagram image"
+msgstr "instagram-bilde"
+
+#: web/models/instagram_image.ex:274
+msgid "instagram images"
+msgstr "instagram-bilder"

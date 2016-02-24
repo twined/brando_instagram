@@ -1,0 +1,101 @@
+## This file is a PO Template file. `msgid`s here are often extracted from
+## source code; add new translations manually only if they're dynamic
+## translations that can't be statically extracted. Run `mix
+## gettext.extract` to bring this file up to date. Leave `msgstr`s empty as
+## changing them here as no effect; edit them in PO (`.po`) files instead.
+#: web/templates/instagram/admin/instagram/index.html.eex:9
+#: web/views/instagram_view.ex:8
+msgid "Approved"
+msgstr ""
+
+#: web/models/instagram_image.ex:280
+msgid "Caption"
+msgstr ""
+
+#: web/models/instagram_image.ex:284
+msgid "Created"
+msgstr ""
+
+#: web/templates/instagram/admin/instagram/index.html.eex:15
+#: web/views/instagram_view.ex:12
+msgid "Deleted"
+msgstr ""
+
+#: web/views/instagram_view.ex:14 web/views/instagram_view.ex:23
+msgid "Download failed"
+msgstr ""
+
+#: web/models/instagram_image.ex:277
+msgid "ID"
+msgstr ""
+
+#: web/models/instagram_image.ex:282
+msgid "Image URL"
+msgstr ""
+
+#: web/menus/instagram_menu.ex:11
+msgid "Index"
+msgstr ""
+
+#: web/controllers/admin/instagram_controller.ex:26
+msgid "Index - Instagram"
+msgstr ""
+
+#: web/templates/instagram/admin/instagram/index.html.eex:1
+msgid "Index - Instagram images"
+msgstr ""
+
+#: web/templates/instagram/admin/instagram/index.html.eex:3
+msgid "Index of instagram images. Only photos in the \"approved\"-row will be displayed on the webpage."
+msgstr ""
+
+#: web/menus/instagram_menu.ex:10
+msgid "Instagram"
+msgstr ""
+
+#: web/models/instagram_image.ex:278
+msgid "Instagram ID"
+msgstr ""
+
+#: web/models/instagram_image.ex:139
+msgid "Instagram: Instagram API error. Download failed.\nURL: %{url}"
+msgstr ""
+
+#: web/models/instagram_image.ex:281
+msgid "Link"
+msgstr ""
+
+#: web/templates/instagram/admin/instagram/index.html.eex:9
+#: web/templates/instagram/admin/instagram/index.html.eex:12
+#: web/templates/instagram/admin/instagram/index.html.eex:15
+msgid "Mark as"
+msgstr ""
+
+#: web/templates/instagram/admin/instagram/index.html.eex:12
+#: web/views/instagram_view.ex:10
+msgid "Rejected"
+msgstr ""
+
+#: web/templates/instagram/admin/instagram/index.html.eex:5
+msgid "Select photos, and click on your wanted action."
+msgstr ""
+
+#: web/models/instagram_image.ex:285
+msgid "Status"
+msgstr ""
+
+#: web/models/instagram_image.ex:283
+msgid "Thumbnail URL"
+msgstr ""
+
+#: web/models/instagram_image.ex:279
+msgid "Type"
+msgstr ""
+
+#: web/models/instagram_image.ex:273
+msgid "instagram image"
+msgstr ""
+
+#: web/models/instagram_image.ex:274
+msgid "instagram images"
+msgstr ""
