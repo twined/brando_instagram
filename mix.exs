@@ -36,7 +36,7 @@ defmodule BrandoInstagram.Mixfile do
      {:ex_machina, "~> 0.6.1", only: :test},
      {:excoveralls, "~> 0.4", only: :test},
 
-     {:brando, github: "twined/brando", branch: :develop, optional: true},
+     {:brando, github: "twined/brando", optional: true},
 
      # Dev dependencies
      {:dialyze, "~> 0.2.0", only: :dev},
