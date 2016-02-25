@@ -37,15 +37,13 @@ defmodule BrandoInstagram.Mixfile do
      {:excoveralls, "~> 0.4", only: :test},
 
      {:brando, github: "twined/brando", branch: :develop, optional: true},
-     {:ecto, "~> 2.0-beta", override: true},
 
      # Dev dependencies
      {:dialyze, "~> 0.2.0", only: :dev},
 
      # Documentation dependencies
      {:ex_doc, "~> 0.11", only: :docs},
-     {:inch_ex, "~> 0.5", only: :docs}
-    ]
+     {:inch_ex, "~> 0.5", only: :docs}]
   end
 
   # Specifies which paths to compile per environment
