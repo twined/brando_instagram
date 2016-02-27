@@ -29,7 +29,7 @@ defmodule BrandoInstagram.Mixfile do
 
   defp deps do
     [{:phoenix, "~> 1.1"},
-     {:gettext, "~> 0.9.0"},
+     {:gettext, "~> 0.10"},
 
      # Test dependencies
      {:phoenix_ecto, "~> 3.0.0-beta", only: :test},
