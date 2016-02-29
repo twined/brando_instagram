@@ -14,10 +14,8 @@ defmodule Brando.Instagram.APITest do
     "username" => "username",
     "link" => "https://instagram.com/p/fakelink/",
     "type" => "image",
-    "url_original" => "https://scontent.cdninstagram.com/" <>
-                      "hphotos-xft1/t51.2885-15/e15/0.jpg",
-    "url_thumbnail" => "https://scontent.cdninstagram.com/" <>
-                       "hphotos-xft1/t51.2885-15/s150x150/e15/0.jpg"}
+    "url_original" => "https://scontent.cdninstagram.com/hphotos-xft1/t51.2885-15/e15/0.jpg?ig_cache_key=MTAzMjQ4MDk5NjcxNjMwODc5OA==.2",
+    "url_thumbnail" => "https://scontent.cdninstagram.com/hphotos-xft1/t51.2885-15/s150x150/e15/0.jpg?ig_cache_key=MTAzMjQ4MDk5NjcxNjMwODc5OA==.2"}
 
   test "get_user_id" do
     assert API.get_user_id("dummy_user") == {:ok, "0123456"}

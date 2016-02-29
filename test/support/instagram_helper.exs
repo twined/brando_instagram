@@ -74,12 +74,12 @@ defmodule Brando.Integration.Instagram do
             "images" => %{
               "standard_resolution" => %{
                 "height" => 640,
-                "url" => "https://scontent.cdninstagram.com/hphotos-xap1/t51.2885-15/e15/11190180_464905646995552_1163060820_n.jpg",
+                "url" => "https://scontent.cdninstagram.com/hphotos-xap1/t51.2885-15/e15/11190180_464905646995552_1163060820_n.jpg?ig_cache_key=MTAzMjQ4MDk5NjcxNjMwODc5OA==.2",
                 "width" => 640
               },
               "thumbnail" => %{
                 "height" => 150,
-                "url" => "https://scontent.cdninstagram.com/hphotos-xap1/t51.2885-15/s150x150/e15/11190180_464905646995552_1163060820_n.jpg",
+                "url" => "https://scontent.cdninstagram.com/hphotos-xap1/t51.2885-15/s150x150/e15/11190180_464905646995552_1163060820_n.jpg?ig_cache_key=MTAzMjQ4MDk5NjcxNjMwODc5OA==.2",
                 "width" => 150
               }
             },
@@ -111,12 +111,12 @@ defmodule Brando.Integration.Instagram do
               "images" => %{
                 "standard_resolution" => %{
                   "height" => 640,
-                  "url" => "https://scontent.cdninstagram.com/hphotos-xft1/t51.2885-15/e15/1.jpg",
+                  "url" => "https://scontent.cdninstagram.com/hphotos-xft1/t51.2885-15/e15/1.jpg?ig_cache_key=MTAzMjQ4MDk5NjcxNjMwODc5OA==.2",
                   "width" => 640
                 },
                 "thumbnail" => %{
                   "height" => 150,
-                  "url" => "https://scontent.cdninstagram.com/hphotos-xft1/t51.2885-15/s150x150/e15/1.jpg",
+                  "url" => "https://scontent.cdninstagram.com/hphotos-xft1/t51.2885-15/s150x150/e15/1.jpg?ig_cache_key=MTAzMjQ4MDk5NjcxNjMwODc5OA==.2",
                   "width" => 150
                 }
               },
@@ -136,12 +136,12 @@ defmodule Brando.Integration.Instagram do
               "images" => %{
                 "standard_resolution" => %{
                   "height" => 640,
-                  "url" => "https://scontent.cdninstagram.com/hphotos-xpf1/t51.2885-15/e15/0.jpg",
+                  "url" => "https://scontent.cdninstagram.com/hphotos-xpf1/t51.2885-15/e15/0.jpg?ig_cache_key=MTAzMjQ4MDk5NjcxNjMwODc5OA==.2",
                   "width" => 640
                 },
                 "thumbnail" => %{
                   "height" => 150,
-                  "url" => "https://scontent.cdninstagram.com/hphotos-xpf1/t51.2885-15/s150x150/e15/0.jpg",
+                  "url" => "https://scontent.cdninstagram.com/hphotos-xpf1/t51.2885-15/s150x150/e15/0.jpg?ig_cache_key=MTAzMjQ4MDk5NjcxNjMwODc5OA==.2",
                   "width" => 150
                 }
               },
@@ -179,12 +179,12 @@ defmodule Brando.Integration.Instagram do
               "images" => %{
                 "standard_resolution" => %{
                   "height" => 640,
-                  "url" => "https://scontent.cdninstagram.com/hphotos-xft1/t51.2885-15/e15/1.jpg",
+                  "url" => "https://scontent.cdninstagram.com/hphotos-xft1/t51.2885-15/e15/1.jpg?ig_cache_key=MTAzMjQ4MDk5NjcxNjMwODc5OA==.2",
                   "width" => 640
                 },
                 "thumbnail" => %{
                   "height" => 150,
-                  "url" => "https://scontent.cdninstagram.com/hphotos-xft1/t51.2885-15/s150x150/e15/1.jpg",
+                  "url" => "https://scontent.cdninstagram.com/hphotos-xft1/t51.2885-15/s150x150/e15/1.jpg?ig_cache_key=MTAzMjQ4MDk5NjcxNjMwODc5OA==.2",
                   "width" => 150
                 }
               },
@@ -204,12 +204,12 @@ defmodule Brando.Integration.Instagram do
               "images" => %{
                 "standard_resolution" => %{
                   "height" => 640,
-                  "url" => "https://scontent.cdninstagram.com/hphotos-xpf1/t51.2885-15/e15/0.jpg",
+                  "url" => "https://scontent.cdninstagram.com/hphotos-xpf1/t51.2885-15/e15/0.jpg?ig_cache_key=MTAzMjQ4MDk5NjcxNjMwODc5OA==.2",
                   "width" => 640
                 },
                 "thumbnail" => %{
                   "height" => 150,
-                  "url" => "https://scontent.cdninstagram.com/hphotos-xpf1/t51.2885-15/s150x150/e15/0.jpg",
+                  "url" => "https://scontent.cdninstagram.com/hphotos-xpf1/t51.2885-15/s150x150/e15/0.jpg?ig_cache_key=MTAzMjQ4MDk5NjcxNjMwODc5OA==.2",
                   "width" => 150
                 }
               },
@@ -248,12 +248,12 @@ defmodule Brando.Integration.Instagram do
               "images" => %{
                 "standard_resolution" => %{
                   "height" => 640,
-                  "url" => "https://scontent.cdninstagram.com/hphotos-xft1/t51.2885-15/e15/1.jpg",
+                  "url" => "https://scontent.cdninstagram.com/hphotos-xft1/t51.2885-15/e15/1.jpg?ig_cache_key=MTAzMjQ4MDk5NjcxNjMwODc5OA==.2",
                   "width" => 640
                 },
                 "thumbnail" => %{
                   "height" => 150,
-                  "url" => "https://scontent.cdninstagram.com/hphotos-xft1/t51.2885-15/s150x150/e15/1.jpg",
+                  "url" => "https://scontent.cdninstagram.com/hphotos-xft1/t51.2885-15/s150x150/e15/1.jpg?ig_cache_key=MTAzMjQ4MDk5NjcxNjMwODc5OA==.2",
                   "width" => 150
                 }
               },
@@ -273,12 +273,12 @@ defmodule Brando.Integration.Instagram do
               "images" => %{
                 "standard_resolution" => %{
                   "height" => 640,
-                  "url" => "https://scontent.cdninstagram.com/hphotos-xpf1/t51.2885-15/e15/0.jpg",
+                  "url" => "https://scontent.cdninstagram.com/hphotos-xpf1/t51.2885-15/e15/0.jpg?ig_cache_key=MTAzMjQ4MDk5NjcxNjMwODc5OA==.2",
                   "width" => 640
                 },
                 "thumbnail" => %{
                   "height" => 150,
-                  "url" => "https://scontent.cdninstagram.com/hphotos-xpf1/t51.2885-15/s150x150/e15/0.jpg",
+                  "url" => "https://scontent.cdninstagram.com/hphotos-xpf1/t51.2885-15/s150x150/e15/0.jpg?ig_cache_key=MTAzMjQ4MDk5NjcxNjMwODc5OA==.2",
                   "width" => 150
                 }
               },
@@ -319,12 +319,12 @@ defmodule Brando.Integration.Instagram do
               "images" => %{
                 "standard_resolution" => %{
                   "height" => 640,
-                  "url" => "https://scontent.cdninstagram.com/hphotos-xap1/t51.2885-15/e15/11190180_464905646995552_1163060820_n.jpg",
+                  "url" => "https://scontent.cdninstagram.com/hphotos-xap1/t51.2885-15/e15/11190180_464905646995552_1163060820_n.jpg?ig_cache_key=MTAzMjQ4MDk5NjcxNjMwODc5OA==.2",
                   "width" => 640
                 },
                 "thumbnail" => %{
                   "height" => 150,
-                  "url" => "https://scontent.cdninstagram.com/hphotos-xap1/t51.2885-15/s150x150/e15/11190180_464905646995552_1163060820_n.jpg",
+                  "url" => "https://scontent.cdninstagram.com/hphotos-xap1/t51.2885-15/s150x150/e15/11190180_464905646995552_1163060820_n.jpg?ig_cache_key=MTAzMjQ4MDk5NjcxNjMwODc5OA==.2",
                   "width" => 150
                 }
               },
@@ -368,12 +368,12 @@ defmodule Brando.Integration.Instagram do
               "images" => %{
                 "standard_resolution" => %{
                   "height" => 640,
-                  "url" => "https://scontent.cdninstagram.com/hphotos-xap1/t51.2885-15/e15/11190180_464905646995552_1163060820_n.jpg",
+                  "url" => "https://scontent.cdninstagram.com/hphotos-xap1/t51.2885-15/e15/11190180_464905646995552_1163060820_n.jpg?ig_cache_key=MTAzMjQ4MDk5NjcxNjMwODc5OA==.2",
                   "width" => 640
                 },
                 "thumbnail" => %{
                   "height" => 150,
-                  "url" => "https://scontent.cdninstagram.com/hphotos-xap1/t51.2885-15/s150x150/e15/11190180_464905646995552_1163060820_n.jpg",
+                  "url" => "https://scontent.cdninstagram.com/hphotos-xap1/t51.2885-15/s150x150/e15/11190180_464905646995552_1163060820_n.jpg?ig_cache_key=MTAzMjQ4MDk5NjcxNjMwODc5OA==.2",
                   "width" => 150
                 }
               },

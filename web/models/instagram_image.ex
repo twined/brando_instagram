@@ -123,11 +123,17 @@ defmodule Brando.InstagramImage do
     |> Map.merge(%{"username" => user["username"],
                    "instagram_id" => instagram_id,
                    "caption" => caption && caption["text"] || "",
-                   "url_thumbnail" => thumb, "url_original" => org})
+                   "url_thumbnail" => strip_q(thumb), "url_original" => strip_q(org)})
     |> Map.drop(["images", "id"])
     |> download_image
     |> create_image_sizes
     |> create
+  end
+
+  defp strip_q(url) do
+    url
+    |> String.split("?")
+    |> List.first
   end
 
   defp download_image(%{"url_original" => url} = image) do
