@@ -14,7 +14,6 @@ config :brando_instagram, BrandoInstagram.Integration.TestRepo,
   adapter: Ecto.Adapters.Postgres,
   extensions: [{Postgrex.Extensions.JSON, library: Poison}],
   pool: Ecto.Adapters.SQL.Sandbox,
-  pool_size: 1,
   pool_overflow: 0
 
 config :brando, :otp_app, :brando_instagram
