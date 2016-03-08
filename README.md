@@ -103,3 +103,22 @@ These are the options for `config :brando, Brando.Instagram`:
   * `query`: What to query.
     * `{:user, "your_name"}` - polls for `your_name`'s images.
     * `{:tags, ["tag1", "tag2"]}` - polls `tag1` and `tag2`
+
+Default config:
+
+```elixir
+config :brando, Brando.Instagram,
+  auto_approve: true,
+  client_id: "",
+  username: "",
+  password: "",
+  query: {:user, "dummy_username"},
+  token_path: Path.join(~w(priv tokens instagram)),
+  interval: 1_000 * 60 * 60,
+  sleep: 5000,
+  sizes: %{
+    "large" =>  %{"size" => "640", "quality" => 100},
+    "thumb" =>  %{"size" => "150x150", "quality" => 100, "crop" => true}
+  },
+  upload_path: Path.join("images", "instagram")
+```
