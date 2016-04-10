@@ -54,6 +54,8 @@ defmodule Brando.Instagram.API do
         case response do
           {:ok, %{body: body, status_code: 200}} ->
             parse_images_for_user(body, username)
+          {:ok, %{body: body, status_code: status_code}} ->
+            {:error, "Instagram/images_for_user: #{inspect(status_code)} - #{inspect(body)}"}
           {:error, %{reason: reason}} ->
             {:error, "Error from HTTPoison: #{inspect(reason)}"}
         end
@@ -77,6 +79,8 @@ defmodule Brando.Instagram.API do
     case response do
       {:ok, %{body: body, status_code: 200}} ->
         parse_images_for_user(body, username)
+      {:ok, %{body: body, status_code: status_code}} ->
+        {:error, "Instagram/images_for_user: #{inspect(status_code)} - #{inspect(body)}"}
       {:error, %{reason: reason}} ->
         {:error, "Error from HTTPoison: #{inspect(reason)}"}
     end
@@ -96,6 +100,8 @@ defmodule Brando.Instagram.API do
       case response do
         {:ok, %{body: body, status_code: 200}} ->
           parse_images_for_tag(body)
+        {:ok, %{body: body, status_code: status_code}} ->
+          {:error, "Instagram/images_for_tags: #{inspect(status_code)} - #{inspect(body)}"}
         {:error, %{reason: reason}} ->
           {:error, "Error from HTTPoison: #{inspect(reason)}"}
       end
@@ -140,6 +146,8 @@ defmodule Brando.Instagram.API do
           Map.get(user, "username") == username && Map.get(user, "id") || ""
         end
         {:ok, Enum.join(ret)}
+      {:ok, %{body: body, status_code: status_code}} ->
+        {:error, "Instagram/get_user_id: #{inspect(status_code)} - #{inspect(body)}"}
       {:error, %{reason: reason}} ->
         {:error, "Error from HTTPoison: #{inspect(reason)}"}
     end
