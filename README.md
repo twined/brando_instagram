@@ -17,7 +17,7 @@ Add brando_instagram to your list of dependencies in `mix.exs`:
 
 Install migrations and frontend files:
 
-    $ mix brando.instagram.install
+    $ mix brando_instagram.install
 
 Run migrations
 

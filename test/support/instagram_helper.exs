@@ -2,7 +2,7 @@ defmodule Brando.Integration.Instagram do
   @img_fixture "#{Path.expand("..", __DIR__)}/fixtures/sample.jpg"
 
   # Users
-  def get("https://api.instagram.com/v1/users/search?q=asf98293h8a9283fh9a238fh&client_id=CLIENT_ID") do
+  def get("https://api.instagram.com/v1/users/search?q=asf98293h8a9283fh9a238fh&access_token=DUMMY_TOKEN") do
     {
       :ok,
       %{
@@ -19,7 +19,7 @@ defmodule Brando.Integration.Instagram do
     }
   end
 
-  def get("https://api.instagram.com/v1/users/search?q=djasf98293h8a9283fh9a238fh&client_id=CLIENT_ID") do
+  def get("https://api.instagram.com/v1/users/search?q=djasf98293h8a9283fh9a238fh&access_token=DUMMY_TOKEN") do
     {
       :ok,
       %{
@@ -34,7 +34,7 @@ defmodule Brando.Integration.Instagram do
     }
   end
 
-  def get("https://api.instagram.com/v1/users/search?q=dummy_user&client_id=CLIENT_ID") do
+  def get("https://api.instagram.com/v1/users/search?q=dummy_user&access_token=DUMMY_TOKEN") do
     {
       :ok,
       %{
@@ -58,7 +58,7 @@ defmodule Brando.Integration.Instagram do
   end
 
   # Media
-  def get("https://api.instagram.com/v1/media/968134024444958851_000000?client_id=CLIENT_ID") do
+  def get("https://api.instagram.com/v1/media/968134024444958851_000000?access_token=DUMMY_TOKEN") do
     {
       :ok,
       %{
@@ -98,7 +98,7 @@ defmodule Brando.Integration.Instagram do
   end
 
   # Media for users
-  def get("https://api.instagram.com/v1/users/0123456/media/recent/?client_id=CLIENT_ID&min_timestamp=0") do
+  def get("https://api.instagram.com/v1/users/0123456/media/recent/?access_token=DUMMY_TOKEN&min_timestamp=0") do
     {
       :ok,
       %{
@@ -166,7 +166,7 @@ defmodule Brando.Integration.Instagram do
     }
   end
 
-  def get("https://api.instagram.com/v1/users/0123456/media/recent/?client_id=CLIENT_ID&min_timestamp=" <> _ts) do
+  def get("https://api.instagram.com/v1/users/0123456/media/recent/?access_token=DUMMY_TOKEN&min_timestamp=" <> _ts) do
     {
       :ok,
       %{
@@ -235,7 +235,7 @@ defmodule Brando.Integration.Instagram do
     }
   end
 
-  def get("https://api.instagram.com/v1/users/0123456/media/recent/?client_id=CLIENT_ID&max_id=968134024444958851") do
+  def get("https://api.instagram.com/v1/users/0123456/media/recent/?access_token=DUMMY_TOKEN&max_id=968134024444958851") do
     {
       :ok,
       %{
@@ -302,7 +302,7 @@ defmodule Brando.Integration.Instagram do
   end
 
   # Media for tags
-  def get("https://api.instagram.com/v1/tags/haraball/media/recent?client_id=CLIENT_ID&min_tag_id=0") do
+  def get("https://api.instagram.com/v1/tags/haraball/media/recent?access_token=DUMMY_TOKEN&min_tag_id=0") do
     {
       :ok,
       %{
@@ -350,7 +350,7 @@ defmodule Brando.Integration.Instagram do
     }
   end
 
-  def get("https://api.instagram.com/v1/tags/haraball/media/recent?client_id=CLIENT_ID&min_tag_id=" <> _) do
+  def get("https://api.instagram.com/v1/tags/haraball/media/recent?access_token=DUMMY_TOKEN&min_tag_id=" <> _) do
     {
       :ok,
       %{
@@ -406,11 +406,11 @@ defmodule Brando.Integration.Instagram do
   end
 
   # Access Token
-  def get!("https://www.instagram.com/accounts/login/?force_classic_login=&next=/oauth/authorize/%3Fclient_id%3DCLIENT_ID%26redirect_uri%3Dhttp%3A//localhost%26response_type%3Dtoken", _) do
+  def get!("https://www.instagram.com/accounts/login/?force_classic_login=&next=/oauth/authorize/%3Fclient_id%3DCLIENT_ID%26redirect_uri%3Dhttp%3A//localhost%26response_type%3Dtoken%26scope%3Dpublic_content", _) do
     %{headers: [{"Set-Cookie", "csrftoken=abcdefghijklmnopqrstuvwxyz0123456789; mid=this_is_the_mid_cookie"}]}
   end
 
-  def post!("https://www.instagram.com/accounts/login/?force_classic_login=&next=/oauth/authorize/%3Fclient_id%3DCLIENT_ID%26redirect_uri%3Dhttp%3A//localhost%26response_type%3Dtoken", _data, _headers) do
+  def post!("https://www.instagram.com/accounts/login/?force_classic_login=&next=/oauth/authorize/%3Fclient_id%3DCLIENT_ID%26redirect_uri%3Dhttp%3A//localhost%26response_type%3Dtoken%26scope%3Dpublic_content", _data, _headers) do
     %{headers: [{"Set-Cookie", "csrftoken=abcdefghijklmnopqrstuvwxyz0123456789; mid=this_is_the_mid_cookie; sessionid=sessioncookie"},
                 {"Location", "http://test.authurl.instagram.com/#access_token=abcd123"}]}
   end
