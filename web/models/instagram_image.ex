@@ -188,7 +188,7 @@ defmodule Brando.InstagramImage do
   """
   @spec get_last_created_time() :: :blank | String.t
   def get_last_created_time do
-    max_ts = Brando.repo.one!(
+    max_ts = Brando.repo.one(
       from m in __MODULE__,
         select: m.created_time,
         order_by: [desc: m.created_time],
@@ -219,7 +219,7 @@ defmodule Brando.InstagramImage do
   """
   @spec get_min_id() :: :blank | String.t
   def get_min_id do
-    id = Brando.repo.one!(
+    id = Brando.repo.one(
       from m in __MODULE__,
         select: m.instagram_id,
         order_by: [desc: m.instagram_id],
