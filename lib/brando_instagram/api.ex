@@ -7,6 +7,7 @@ defmodule Brando.Instagram.API do
 
   alias Brando.Instagram
   alias Brando.InstagramImage
+  alias Brando.Instagram.Server.State
 
   @http_lib Keyword.get(Application.get_env(:brando, Brando.Instagram, []), :api_http_lib, Instagram.API)
   @url_base "https://api.instagram.com/v1"
@@ -15,45 +16,45 @@ defmodule Brando.Instagram.API do
   Main entry from genserver's `:poll`.
   Checks if we want `:user` or `:tags`
   """
-  def query(filter, q) do
-    check_for_failed_downloads()
-    do_query(filter, q)
+  def query(state) do
+    check_for_failed_downloads(state)
+    do_query(state)
   end
 
-  defp do_query(:blank, {:user, username}) do
-    images_for_user(username, min_timestamp: 0)
+  defp do_query(%State{filter: :blank, query: {:user, username}} = state) do
+    images_for_user(username, state, min_timestamp: 0)
     {:ok, InstagramImage.get_last_created_time}
   end
 
-  defp do_query(filter, {:user, username}) do
-    images_for_user(username, min_timestamp: filter)
+  defp do_query(%State{filter: filter, query: {:user, username}} = state) do
+    images_for_user(username, state, min_timestamp: filter)
     {:ok, InstagramImage.get_last_created_time}
   end
 
-  defp do_query(:blank, {:tags, tags}) do
-    images_for_tags(tags, min_id: 0)
+  defp do_query(%State{filter: :blank, query: {:tags, tags}} = state) do
+    images_for_tags(tags, state, min_id: 0)
     {:ok, InstagramImage.get_min_id}
   end
 
-  defp do_query(filter, {:tags, tags}) do
-    images_for_tags(tags, min_id: filter)
+  defp do_query(%State{filter: filter, query: {:tags, tags}} = state) do
+    images_for_tags(tags, state, min_id: filter)
     {:ok, InstagramImage.get_min_id}
   end
 
   @doc """
   Get images for `username` by `min_timestamp`.
   """
-  def images_for_user(username, min_timestamp: last_created_time) do
-    case get_user_id(username) do
+  def images_for_user(username, state, min_timestamp: last_created_time) do
+    case get_user_id(username, state) do
       {:ok, user_id} ->
         response = @http_lib.get(
           "#{@url_base}/users/#{user_id}/media/recent/" <>
-          "?#{identifier()}" <>
+          "?#{identifier(state)}" <>
           "&min_timestamp=#{last_created_time}"
         )
         case response do
           {:ok, %{body: body, status_code: 200}} ->
-            parse_images_for_user(body, username)
+            parse_images_for_user(body, username, state)
           {:ok, %{body: body, status_code: status_code}} ->
             {:error, "Instagram/images_for_user: #{inspect(status_code)} - #{inspect(body)}"}
           {:error, %{reason: reason}} ->
@@ -68,17 +69,19 @@ defmodule Brando.Instagram.API do
   @doc """
   Get images for `username` by `max_id`.
   """
-  def images_for_user(username, max_id: max_id) do
-    {:ok, user_id} = get_user_id(username)
+  def images_for_user(username, state, max_id: max_id) do
+    {:ok, user_id} = get_user_id(username, state)
+
     response = @http_lib.get(
       "#{@url_base}/users/" <>
       "#{user_id}/media/recent/" <>
-      "?#{identifier()}" <>
+      "?#{identifier(state)}" <>
       "&max_id=#{max_id}"
     )
+
     case response do
       {:ok, %{body: body, status_code: 200}} ->
-        parse_images_for_user(body, username)
+        parse_images_for_user(body, username, state)
       {:ok, %{body: body, status_code: status_code}} ->
         {:error, "Instagram/images_for_user: #{inspect(status_code)} - #{inspect(body)}"}
       {:error, %{reason: reason}} ->
@@ -90,13 +93,14 @@ defmodule Brando.Instagram.API do
   @doc """
   Get images for `[tags]` by `min_timestamp`.
   """
-  def images_for_tags(tags, min_id: min_id) do
+  def images_for_tags(tags, state, min_id: min_id) do
     Enum.each tags, fn(tag) ->
       response = @http_lib.get(
         "#{@url_base}/tags/#{tag}/media/recent" <>
-        "?#{identifier()}" <>
+        "?#{identifier(state)}" <>
         "&min_tag_id=#{min_id}"
       )
+
       case response do
         {:ok, %{body: body, status_code: 200}} ->
           parse_images_for_tag(body)
@@ -109,11 +113,12 @@ defmodule Brando.Instagram.API do
     :ok
   end
 
-  defp get_media(media_id) do
+  defp get_media(media_id, state) do
     response = @http_lib.get(
       "#{@url_base}/media/" <>
       "#{media_id}" <>
-      "?#{identifier()}")
+      "?#{identifier(state)}")
+
     case response do
       {:ok, %{body: body, status_code: 200}} ->
         parse_media(body)
@@ -125,11 +130,12 @@ defmodule Brando.Instagram.API do
   @doc """
   Get Instagram's user ID for `username`
   """
-  def get_user_id(username) do
+  def get_user_id(username, state) do
     response = @http_lib.get(
       "#{@url_base}/users/search?q=#{username}" <>
-      "&#{identifier()}"
+      "&#{identifier(state)}"
     )
+
     case response do
       {:ok, %{body: [{:data, [%{"id" => id}]} | _]}} ->
         {:ok, id}
@@ -138,7 +144,7 @@ defmodule Brando.Instagram.API do
       {:ok, %{body: {:error, error}}} ->
         {:error, "Instagram API error: #{inspect(error)}"}
       {:ok, %{body: [meta: %{"error_message" => _, "error_type" => "OAuthAccessTokenException"}], status_code: 400}} ->
-        {:error, "Instagram access_token not valid. Refreshing..."}
+        {:error, "Instagram access_token not valid."}
       {:ok, %{body: [meta: %{"error_message" => error_message}], status_code: 400}} ->
         {:error, "Instagram API 400 error: #{inspect(error_message)}"}
       {:ok, %{body: [{:data, multiple} | _]}} ->
@@ -173,7 +179,7 @@ defmodule Brando.Instagram.API do
   @doc """
   Store each image in `data`. Checks `pagination` for more images.
   """
-  def parse_images_for_user([data: data, meta: _meta, pagination: pagination], username) do
+  def parse_images_for_user([data: data, meta: _meta, pagination: pagination], username, state) do
     Enum.each data, fn(image) ->
       InstagramImage.store_image(image)
       # lets be nice and wait 5 seconds between storing images
@@ -182,7 +188,7 @@ defmodule Brando.Instagram.API do
 
     if map_size(pagination) != 0 do
       :timer.sleep(Instagram.config(:sleep))
-      images_for_user(username, max_id: Map.get(pagination, "next_max_id"))
+      images_for_user(username, state, max_id: Map.get(pagination, "next_max_id"))
     end
   end
 
@@ -200,16 +206,13 @@ defmodule Brando.Instagram.API do
     end
   end
 
-  defp check_for_failed_downloads do
+  defp check_for_failed_downloads(state) do
     for failed <- InstagramImage.get_failed_downloads() do
-      get_media(failed.instagram_id)
+      get_media(failed.instagram_id, state)
     end
   end
 
-  defp identifier do
-    case Instagram.config(:use_token) do
-      true -> "access_token=GET_TOKEN_FROM_STATE?"
-      _    -> "client_id=#{Instagram.config(:client_id)}"
-    end
+  defp identifier(%State{access_token: token}) do
+    "access_token=#{token}"
   end
 end

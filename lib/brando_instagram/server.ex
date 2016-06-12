@@ -22,7 +22,7 @@ defmodule Brando.Instagram.Server do
 
   @doc false
   def init(_) do
-    token = if Instagram.config(:use_token), do: AccessToken.load_token()
+    token = AccessToken.load_token()
     filter = InstagramImage.get_last_created_time()
 
     send(self(), :poll)
@@ -39,25 +39,25 @@ defmodule Brando.Instagram.Server do
   end
 
   @doc false
-  def stop(server) do
-    GenServer.call(server, :stop)
+  def stop() do
+    GenServer.call(__MODULE__, :stop)
   end
 
   @doc false
-  def state(server) do
-    GenServer.call(server, :state)
+  def state() do
+    GenServer.call(__MODULE__, :state)
   end
 
   @doc false
-  def refresh_token(server) do
-    GenServer.call(server, :refresh_token)
+  def refresh_token() do
+    GenServer.call(__MODULE__, :refresh_token)
   end
 
   # Private
   @doc false
   def handle_info(:poll, %State{} = state) do
     try do
-      {:ok, new_filter} = API.query(state.filter, state.query)
+      {:ok, new_filter} = API.query(state)
       state = Map.put(state, :filter, new_filter)
       {:noreply, state}
     catch

@@ -91,15 +91,14 @@ defmodule Brando.Instagram.AccessToken do
   defp post_callback(response) do
     {_, location} = List.keyfind(response.headers, "Location", 0, {nil, nil})
 
-    cookies =
-      response.headers
-      |> get_cookies
-      |> Enum.into(%{})
+    cookies = response.headers
+              |> get_cookies
+              |> Enum.into(%{})
 
-    csrf_token = cookies["csrftoken"]
-    mid_token = cookies["mid"]
+    csrf_token    = cookies["csrftoken"]
+    mid_token     = cookies["mid"]
     session_token = cookies["sessionid"]
-    referer = host() <> action()
+    referer       = host() <> action()
 
     headers = [
       {"cookie", "mid=#{mid_token}; csrftoken=#{csrf_token}; sessionid=#{session_token}"},
@@ -166,7 +165,7 @@ defmodule Brando.Instagram.AccessToken do
   defp action do
     "/accounts/login/?force_classic_login=" <>
     "&next=/oauth/authorize/%3Fclient_id%3D#{config(:client_id)}" <>
-    "%26redirect_uri%3Dhttp%3A//localhost%26response_type%3Dtoken"
+    "%26redirect_uri%3Dhttp%3A//localhost%26response_type%3Dtoken%26scope%3Dpublic_content"
   end
 
   defp default_headers() do
