@@ -23,10 +23,6 @@ defmodule Brando.Instagram.APITest do
 
   test "get images for user" do
     Brando.repo.delete_all(InstagramImage)
-    assert API.images_for_user("dummy_user", state(), min_timestamp: "1412585305")
-           == :ok
-    assert length(Brando.repo.all(InstagramImage)) == 2
-    Brando.repo.delete_all(InstagramImage)
     assert API.images_for_user("dummy_user", state(), max_id: "968134024444958851")
            == :ok
     assert length(Brando.repo.all(InstagramImage)) == 2

@@ -119,6 +119,7 @@ defmodule Brando.InstagramImage do
   def store_image(%{"id" => instagram_id, "caption" => caption, "user" => user,
                     "images" => %{"thumbnail" => %{"url" => thumb},
                     "standard_resolution" => %{"url" => org}}} = image) do
+
     image
     |> Map.merge(%{"username" => user["username"],
                    "instagram_id" => instagram_id,
@@ -211,6 +212,15 @@ defmodule Brando.InstagramImage do
     Brando.repo.all(
       from m in __MODULE__,
         where: m.status == 3
+    )
+  end
+
+  def get_20_latest do
+    Brando.repo.all(
+      from m in __MODULE__,
+          select: m.instagram_id,
+        order_by: [desc: m.created_time],
+           limit: 20
     )
   end
 

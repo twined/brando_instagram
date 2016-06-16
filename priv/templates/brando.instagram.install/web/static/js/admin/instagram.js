@@ -2,8 +2,8 @@
 
 import $ from "jquery";
 
-import {vex} from "./vex_brando";
-import Utils from "./utils";
+import {vex} from "brando";
+import Utils from "brando";
 
 var imagePool = [];
 class Instagram {

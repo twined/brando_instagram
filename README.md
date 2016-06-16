@@ -30,7 +30,7 @@ Add to your `web/router.ex`:
     defmodule MyApp.Router do
       use MyApp.Web, :router
       # ...
-+     import Brando.Portfolio.Routes.Admin
++     import Brando.Instagram.Routes.Admin
 
       scope "/admin", as: :admin do
         pipe_through :admin
