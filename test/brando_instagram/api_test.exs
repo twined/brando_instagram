@@ -23,7 +23,7 @@ defmodule Brando.Instagram.APITest do
 
   test "get images for user" do
     Brando.repo.delete_all(InstagramImage)
-    assert API.images_for_user("dummy_user", state(), max_id: "968134024444958851")
+    assert API.images_for_user("dummy_user", state(), min_id: "968134024444958851")
            == :ok
     assert length(Brando.repo.all(InstagramImage)) == 2
   end
@@ -44,8 +44,8 @@ defmodule Brando.Instagram.APITest do
     # install fake image in db
     {:ok, _} = InstagramImage.create(@instaimage)
 
-    assert API.query(state(:blank, cfg[:query])) == {:ok, "1429882831"}
-    assert API.query(state("1412585305", cfg[:query])) == {:ok, "1429882831"}
+    assert API.query(state(:blank, cfg[:query])) == {:ok, "970249962242331087"}
+    assert API.query(state("1412585305", cfg[:query])) == {:ok, "970249962242331087"}
   end
 
   test "query tag" do

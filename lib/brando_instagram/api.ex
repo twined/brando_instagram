@@ -42,7 +42,7 @@ defmodule Brando.Instagram.API do
   end
 
   @doc """
-  Get images for `username` by `min_timestamp`.
+  Get images for `username` by `min_id`.
   """
   def images_for_user(username, state, min_id: min_id) do
     case get_user_id(username, state) do

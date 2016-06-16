@@ -98,7 +98,7 @@ defmodule Brando.Integration.Instagram do
   end
 
   # Media for users
-  def get("https://api.instagram.com/v1/users/0123456/media/recent/?access_token=DUMMY_TOKEN&min_timestamp=0") do
+  def get("https://api.instagram.com/v1/users/0123456/media/recent/?access_token=DUMMY_TOKEN&min_id=0") do
     {
       :ok,
       %{
@@ -166,7 +166,7 @@ defmodule Brando.Integration.Instagram do
     }
   end
 
-  def get("https://api.instagram.com/v1/users/0123456/media/recent/?access_token=DUMMY_TOKEN&min_timestamp=" <> _ts) do
+  def get("https://api.instagram.com/v1/users/0123456/media/recent/?access_token=DUMMY_TOKEN&min_id=" <> _ts) do
     {
       :ok,
       %{
@@ -235,7 +235,7 @@ defmodule Brando.Integration.Instagram do
     }
   end
 
-  def get("https://api.instagram.com/v1/users/0123456/media/recent/?access_token=DUMMY_TOKEN&max_id=968134024444958851") do
+  def get("https://api.instagram.com/v1/users/0123456/media/recent/?access_token=DUMMY_TOKEN&min_id=968134024444958851") do
     {
       :ok,
       %{
