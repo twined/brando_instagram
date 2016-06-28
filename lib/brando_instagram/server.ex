@@ -35,6 +35,8 @@ defmodule Brando.Instagram.Server do
       |> Map.put(:access_token, token)
       |> Map.put(:query, Instagram.config(:query))
 
+    Logger.info("==> Brando.Instagram.Server initialized")
+
     {:ok, state}
   end
 
