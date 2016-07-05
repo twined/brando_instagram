@@ -31,6 +31,6 @@ defmodule BrandoInstagram.ConnCase do
 
   setup do
     :ok = Ecto.Adapters.SQL.Sandbox.checkout(BrandoInstagram.Integration.TestRepo)
-    {:ok, conn: Phoenix.ConnTest.conn()}
+    {:ok, conn: Phoenix.ConnTest.build_conn()}
   end
 end

@@ -13,7 +13,6 @@ defmodule Brando.Instagram.Server do
   alias Brando.Instagram.Server.State
   alias Brando.InstagramImage
 
-
   # Public
   @doc false
   def start_link do

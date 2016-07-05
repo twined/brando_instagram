@@ -84,7 +84,8 @@ defmodule Brando.InstagramImage do
   """
   @spec create(%{binary => term} | %{atom => term}) :: {:ok, t} | {:error, Keyword.t}
   def create(params) do
-    image = Brando.repo.get_by(__MODULE__, instagram_id: params["instagram_id"])
+    image = Brando.repo.get_by(__MODULE__, instagram_id: params["instagram_id"] ||
+                                                         params[:instagram_id])
     if image do
       image
       |> changeset(:update, params)
