@@ -64,14 +64,11 @@ Add to your `lib/my_app.ex`:
 Add to your `web/static/css/app.scss`:
 
 ```diff
-  @import
-    "includes/colorbox",
-    "includes/cookielaw",
-    "includes/dropdown",
-    "includes/instagram",
--   "includes/nav";
-+   "includes/nav",
-+   "includes/instagram";
+  @import "includes/colorbox";
+  @import "includes/cookielaw";
+  @import "includes/dropdown";
+  @import "includes/nav";
++ @import "includes/instagram";
 ```
 
 Add to your `web/static/css/custom/brando.custom.scss`
@@ -83,11 +80,40 @@ Add to your `web/static/css/custom/brando.custom.scss`
 
 `instagram.js` is copied to your `web/static/js/admin` directory, and needs to be initialized.
 
+Edit `js/admin/custom.js`:
+
 ```javascript
-  case "instagram-index":
+'use strict';
+
+import $ from 'jquery';
+import Instagram from './instagram';
+
+$(() => {
+  switch ($('body').attr('data-script')) {
+    case 'instagram-index':
       Instagram.setup();
-      break;
+    break;
+  }
+});
 ```
+
+## Instagram setup
+
+  * Login to your developer account.
+  * Click "Manage Clients"
+  * Click "Register a New Client"
+  * Fill out form, add "http://localhost" to "Valid redirect URIs"
+  * Click the security pane
+  * Disable the "Disable implicit OAuth" choice
+
+  * Click "Manage" on your newly created client
+  * Click the "Sandbox"-pane
+  * Add the account name of the Instagram account you want to track
+
+  * Login to the developer section of the Instagram account you want to track
+  * Click "Sandbox Invites"-tab at the top
+  * Fill in information, if needed
+  * Accept sandbox invitation from your dev account
 
 ## Configuration options
 

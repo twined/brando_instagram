@@ -1,5 +1,4 @@
 Code.require_file("support/router_helper.exs", __DIR__)
-Code.require_file("support/instagram_helper.exs", __DIR__)
 
 {:ok, _} = Application.ensure_all_started(:brando)
 {:ok, _} = Application.ensure_all_started(:ecto)
