@@ -1,12 +1,12 @@
 defmodule Brando.InstagramImage do
   @moduledoc """
-  Ecto schema for the InstagramImage model
-  and helper functions for dealing with the model.
+  Ecto schema for the InstagramImage schema
+  and helper functions for dealing with the schema.
   """
 
   @type t :: %__MODULE__{}
 
-  use Brando.Web, :model
+  use Brando.Web, :schema
   require Logger
   alias Brando.Instagram
   import Brando.Instagram.Gettext
@@ -32,23 +32,23 @@ defmodule Brando.InstagramImage do
   end
 
   @doc """
-  Casts and validates `params` against `model` to create a valid
+  Casts and validates `params` against `schema` to create a valid
   changeset when action is :create.
 
   ## Example
 
-      model_changeset = changeset(%__MODULE__{}, :create, params)
+      schema_changeset = changeset(%__MODULE__{}, :create, params)
 
   """
   @spec changeset(t, :create, Keyword.t | Options.t) :: t
-  def changeset(model, :create, params) do
+  def changeset(schema, :create, params) do
     status =
       case params["image"] do
         nil -> :download_failed
         _   -> @cfg[:auto_approve] && :approved || :rejected
       end
 
-    model
+    schema
     |> cast(params, @required_fields ++ @optional_fields)
     |> validate_required(@required_fields)
     |> unique_constraint(:instagram_id)
@@ -56,30 +56,30 @@ defmodule Brando.InstagramImage do
   end
 
   @doc """
-  Casts and validates `params` against `model` to create a valid
+  Casts and validates `params` against `schema` to create a valid
   changeset when action is :update.
 
   ## Example
 
-      model_changeset = changeset(%__MODULE__{}, :update, params)
+      schema_changeset = changeset(%__MODULE__{}, :update, params)
 
   """
   @spec changeset(t, :update, %{binary => term} | %{atom => term}) :: t
-  def changeset(model, :update, params) do
+  def changeset(schema, :update, params) do
     status =
-      if model.status == :download_failed && params["image"] do
+      if schema.status == :download_failed && params["image"] do
         @cfg[:auto_approve] && :approved || :rejected
       else
-        model.status
+        schema.status
       end
 
-    model
+    schema
     |> cast(params, @required_fields ++ @optional_fields)
     |> put_change(:status, status)
   end
 
   @doc """
-  Create a changeset for the model by passing `params`.
+  Create a changeset for the schema by passing `params`.
   If not valid, return errors from changeset
   """
   @spec create(%{binary => term} | %{atom => term}) :: {:ok, t} | {:error, Keyword.t}
@@ -98,17 +98,17 @@ defmodule Brando.InstagramImage do
   end
 
   @doc """
-  Create an `update` changeset for the model by passing `params`.
-  If valid, update model in Brando.repo.
+  Create an `update` changeset for the schema by passing `params`.
+  If valid, update schema in Brando.repo.
   If not valid, return errors from changeset
   """
   @spec update(t, %{binary => term} | %{atom => term}) :: {:ok, t} | {:error, Keyword.t}
-  def update(model, params) do
-    model_changeset = changeset(model, :update, params)
-    if model_changeset.valid? do
-      {:ok, Brando.repo.update!(model_changeset)}
+  def update(schema, params) do
+    schema_changeset = changeset(schema, :update, params)
+    if schema_changeset.valid? do
+      {:ok, Brando.repo.update!(schema_changeset)}
     else
-      {:error, model_changeset.errors}
+      {:error, schema_changeset.errors}
     end
   end
 
@@ -156,14 +156,14 @@ defmodule Brando.InstagramImage do
     end
   end
 
-  defp create_image_sizes(%{"image" => nil} = image_model) do
-    image_model
+  defp create_image_sizes(%{"image" => nil} = image_schema) do
+    image_schema
   end
 
-  defp create_image_sizes(image_model) do
+  defp create_image_sizes(image_schema) do
     sizes_cfg = Brando.Instagram.config(:sizes)
     if sizes_cfg != nil do
-      image_field = image_model["image"]
+      image_field = image_schema["image"]
       media_path = Brando.config(:media_path)
 
       full_path = Path.join([media_path, image_field.path])
@@ -179,9 +179,9 @@ defmodule Brando.InstagramImage do
       end
 
       image_field = Map.put(image_field, :sizes, Enum.into(sizes, %{}))
-      Map.put(image_model, "image", image_field)
+      Map.put(image_schema, "image", image_field)
     else
-      image_model
+      image_schema
     end
   end
 
@@ -246,7 +246,7 @@ defmodule Brando.InstagramImage do
   #
   # Meta
 
-  use Brando.Meta.Model, [
+  use Brando.Meta.Schema, [
     singular: gettext("instagram image"),
     plural: gettext("instagram images"),
     repr: &("#{&1.id} | #{&1.caption}"),

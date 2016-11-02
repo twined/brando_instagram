@@ -1,6 +1,6 @@
 defmodule Brando.Type.InstagramStatus do
   @moduledoc """
-  Defines a type for managing status in instagram models.
+  Defines a type for managing status in instagram schemas.
   """
 
   @behaviour Ecto.Type

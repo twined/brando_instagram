@@ -8,11 +8,11 @@
 msgid "Approved"
 msgstr ""
 
-#: web/models/instagram_image.ex:280
+#: web/schemas/instagram_image.ex:280
 msgid "Caption"
 msgstr ""
 
-#: web/models/instagram_image.ex:284
+#: web/schemas/instagram_image.ex:284
 msgid "Created"
 msgstr ""
 
@@ -25,11 +25,11 @@ msgstr ""
 msgid "Download failed"
 msgstr ""
 
-#: web/models/instagram_image.ex:277
+#: web/schemas/instagram_image.ex:277
 msgid "ID"
 msgstr ""
 
-#: web/models/instagram_image.ex:282
+#: web/schemas/instagram_image.ex:282
 msgid "Image URL"
 msgstr ""
 
@@ -53,15 +53,15 @@ msgstr ""
 msgid "Instagram"
 msgstr ""
 
-#: web/models/instagram_image.ex:278
+#: web/schemas/instagram_image.ex:278
 msgid "Instagram ID"
 msgstr ""
 
-#: web/models/instagram_image.ex:139
+#: web/schemas/instagram_image.ex:139
 msgid "Instagram: Instagram API error. Download failed.\nURL: %{url}"
 msgstr ""
 
-#: web/models/instagram_image.ex:281
+#: web/schemas/instagram_image.ex:281
 msgid "Link"
 msgstr ""
 
@@ -80,22 +80,22 @@ msgstr ""
 msgid "Select photos, and click on your wanted action."
 msgstr ""
 
-#: web/models/instagram_image.ex:285
+#: web/schemas/instagram_image.ex:285
 msgid "Status"
 msgstr ""
 
-#: web/models/instagram_image.ex:283
+#: web/schemas/instagram_image.ex:283
 msgid "Thumbnail URL"
 msgstr ""
 
-#: web/models/instagram_image.ex:279
+#: web/schemas/instagram_image.ex:279
 msgid "Type"
 msgstr ""
 
-#: web/models/instagram_image.ex:273
+#: web/schemas/instagram_image.ex:273
 msgid "instagram image"
 msgstr ""
 
-#: web/models/instagram_image.ex:274
+#: web/schemas/instagram_image.ex:274
 msgid "instagram images"
 msgstr ""

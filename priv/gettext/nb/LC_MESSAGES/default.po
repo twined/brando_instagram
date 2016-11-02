@@ -20,11 +20,11 @@ msgstr ""
 msgid "Approved"
 msgstr "Godkjent"
 
-#: web/models/instagram_image.ex:280
+#: web/schemas/instagram_image.ex:280
 msgid "Caption"
 msgstr "Bildetekst"
 
-#: web/models/instagram_image.ex:284
+#: web/schemas/instagram_image.ex:284
 msgid "Created"
 msgstr "Opprettet"
 
@@ -37,11 +37,11 @@ msgstr "Slettet"
 msgid "Download failed"
 msgstr "Nedlasting mislyktes"
 
-#: web/models/instagram_image.ex:277
+#: web/schemas/instagram_image.ex:277
 msgid "ID"
 msgstr "ID"
 
-#: web/models/instagram_image.ex:282
+#: web/schemas/instagram_image.ex:282
 msgid "Image URL"
 msgstr "Bilde-URL"
 
@@ -65,17 +65,17 @@ msgstr "Indeks for Instagram-bilder. Kun bilder i \"godkjent\"-raden vises på w
 msgid "Instagram"
 msgstr "Instagram"
 
-#: web/models/instagram_image.ex:278
+#: web/schemas/instagram_image.ex:278
 msgid "Instagram ID"
 msgstr "Instagram-ID"
 
-#: web/models/instagram_image.ex:139
+#: web/schemas/instagram_image.ex:139
 msgid ""
 "Instagram: Instagram API error. Download failed.\n"
 "URL: %{url}"
 msgstr "Instagram: Instagram API feil. Nedlasting mislyktes. URL:% {url}"
 
-#: web/models/instagram_image.ex:281
+#: web/schemas/instagram_image.ex:281
 msgid "Link"
 msgstr "Lenke"
 
@@ -94,22 +94,22 @@ msgstr "Avvist"
 msgid "Select photos, and click on your wanted action."
 msgstr "Velg bilder, og klikk på den ønskede handlingen."
 
-#: web/models/instagram_image.ex:285
+#: web/schemas/instagram_image.ex:285
 msgid "Status"
 msgstr "Status"
 
-#: web/models/instagram_image.ex:283
+#: web/schemas/instagram_image.ex:283
 msgid "Thumbnail URL"
 msgstr "Miniatyrbilde-URL"
 
-#: web/models/instagram_image.ex:279
+#: web/schemas/instagram_image.ex:279
 msgid "Type"
 msgstr "Type"
 
-#: web/models/instagram_image.ex:273
+#: web/schemas/instagram_image.ex:273
 msgid "instagram image"
 msgstr "instagram-bilde"
 
-#: web/models/instagram_image.ex:274
+#: web/schemas/instagram_image.ex:274
 msgid "instagram images"
 msgstr "instagram-bilder"
