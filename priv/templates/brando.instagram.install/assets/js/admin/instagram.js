@@ -1,11 +1,8 @@
 import $ from 'jquery';
-
-import {
-  vex,
-  Utils
-} from 'brando';
+import brando from 'brando';
 
 var imagePool = [];
+
 class Instagram {
   static setup() {
     this.checkButtonEnable();
@@ -47,9 +44,9 @@ class Instagram {
     let $btn = $(
       '.delete-selected-images, .approve-selected-images, .reject-selected-images');
     if (imagePool.length > 0) {
-      $btn.removeAttr('disabled');
+      $btn.prop('disabled', false);
     } else {
-      $btn.attr('disabled', 'disabled');
+      $btn.prop('disabled', true);
     }
   }
 
@@ -79,7 +76,7 @@ class Instagram {
         Accept: 'application/json; charset=utf-8'
       },
       type: 'POST',
-      url: Utils.addToPathName('change-status'),
+      url: brando.Utils.addToPathName('change-status'),
       data: {
         ids: images,
         status: status
@@ -113,9 +110,7 @@ class Instagram {
           });
       }
       imagePool = [];
-      $('.image-selection-pool img')
-        .removeClass('selected');
-      vex.dialog.alert('Status successfully changed.');
+      $('.image-selection-pool img').removeClass('selected');
     }
   }
 }

@@ -14,8 +14,8 @@ defmodule Mix.Tasks.BrandoInstagram.Install do
             "priv/repo/migrations/timestamp_create_instagram_instagramimages.exs"},
 
     # Backend js
-    {:copy, "templates/brando.instagram.install/web/static/js/admin/instagram.js",
-            "web/static/js/admin/instagram.js"},
+    {:copy, "templates/brando.instagram.install/assets/js/admin/instagram.js",
+            "assets/js/admin/instagram.js"},
 
   ]
 
@@ -53,7 +53,7 @@ defmodule Mix.Tasks.BrandoInstagram.Install do
       else
         target_path
       end
-      
+
       target = Path.join(target_dir, target_path)
 
       case format do
