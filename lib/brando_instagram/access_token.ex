@@ -22,7 +22,7 @@ defmodule Brando.Instagram.AccessToken do
 
   """
   def retrieve_token do
-    get_login_page
+    get_login_page()
     |> post_login
     |> post_authorize
     |> post_callback
@@ -72,7 +72,7 @@ defmodule Brando.Instagram.AccessToken do
     cookies = get_cookies(response.headers)
     {_, csrf_token} = List.keyfind(cookies, "csrftoken", 0, {nil, nil})
     {_, mid_token} = List.keyfind(cookies, "mid", 0, {nil, nil})
-    url = host() <> action
+    url = host() <> action()
 
     headers = default_headers() ++ [
       {"cookie", "mid=#{mid_token}; csrftoken=#{csrf_token}"},
