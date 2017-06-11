@@ -12,7 +12,6 @@ config :logger, level: :warn
 config :brando_instagram, BrandoInstagram.Integration.TestRepo,
   url: "ecto://postgres:postgres@localhost/brando_instagram_test",
   adapter: Ecto.Adapters.Postgres,
-  extensions: [{Postgrex.Extensions.JSON, library: Poison}],
   pool: Ecto.Adapters.SQL.Sandbox,
   pool_overflow: 0
 
@@ -81,3 +80,13 @@ config :brando, Brando.Instagram,
 
 config :comeonin, :bcrypt_log_rounds, 4
 config :comeonin, :pbkdf2_rounds, 1
+
+# Configure Guardian for auth.
+config :guardian, Guardian,
+  allowed_algos: ["HS512"], # optional
+  verify_module: Guardian.JWT,  # optional
+  issuer: "BrandoTesting",
+  ttl: {30, :days},
+  verify_issuer: true, # optional
+  secret_key: "XX9ND0BmT51mrKWp46WdYZoPWOv6awnEScbNg3HPWTnnl605tmDKEogZCb9109gb",
+  serializer: Brando.GuardianSerializer

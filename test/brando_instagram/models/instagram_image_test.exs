@@ -11,9 +11,9 @@ defmodule Brando.Integration.InstagramImageTest do
   end
 
   test "create/1 errors" do
-    {_v, params} = Dict.pop(Factory.params_for(:instagram_image), :link)
+    {_v, params} = Map.pop(Factory.params_for(:instagram_image), :link)
     assert {:error, changeset} = InstagramImage.create(params)
-    assert changeset.errors == [link: {"can't be blank", []}]
+    assert changeset.errors == [link: {"can't be blank", [validation: :required]}]
   end
 
   test "get/1" do
@@ -30,7 +30,7 @@ defmodule Brando.Integration.InstagramImageTest do
 
   test "update" do
     result = InstagramImage.update(%InstagramImage{status: :download_failed}, %{"created_time" => 1})
-    assert result == {:error, [created_time: {"is invalid", [type: :string]}]}
+    assert result == {:error, [created_time: {"is invalid", [type: :string, validation: :cast]}]}
   end
 
   test "meta" do

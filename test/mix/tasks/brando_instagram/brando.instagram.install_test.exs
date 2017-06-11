@@ -11,7 +11,7 @@ defmodule Mix.Tasks.BrandoInstagram.InstallTest do
 
   setup_all do
     templates_path = Path.join([@project_path, "deps",
-                               "brando_portfolio", "web", "templates"])
+                               "brando_portfolio", "lib", "web", "templates"])
     root_path =  File.cwd!
 
     # Clean up
@@ -25,7 +25,7 @@ defmodule Mix.Tasks.BrandoInstagram.InstallTest do
 
     # Copy templates into `deps/?/templates`
     # to mimic a real Phoenix application
-    File.cp_r! Path.join([root_path, "web", "templates"]), templates_path
+    File.cp_r! Path.join([root_path, "lib", "web", "templates"]), templates_path
 
     # Move into the project directory to run the generator
     File.cd! @project_path
@@ -42,7 +42,7 @@ defmodule Mix.Tasks.BrandoInstagram.InstallTest do
       assert file =~ "defmodule BrandoInstagram.Repo.Migrations.CreateInstagramimages"
     end
 
-    assert_file "web/static/js/admin/instagram.js", fn file ->
+    assert_file "assets/js/admin/instagram.js", fn file ->
       assert file =~ "class Instagram {"
     end
   end

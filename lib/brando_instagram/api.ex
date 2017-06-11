@@ -175,7 +175,7 @@ defmodule Brando.Instagram.API do
     case Poison.decode(body) do
       {:ok, result}   ->
         Enum.map(result, fn({k, v}) -> {String.to_atom(k), v} end)
-      {:error, :invalid} ->
+      {:error, :invalid, _} ->
         body
       {:error, errors} ->
         {:error, errors}
