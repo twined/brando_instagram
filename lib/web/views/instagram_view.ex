@@ -17,7 +17,7 @@ defmodule Brando.Instagram.Admin.InstagramView do
     div_close       = ~s(</div>)
 
     {_, {approved, rejected, deleted, failed}} =
-      Enum.map_reduce(images, {"", "", "", 0}, fn(i, data) ->
+      Enum.map_reduce(images, {"", "", "", ""}, fn(i, data) ->
         check_status(i, data)
       end)
     failed = ~s(#{failed} #{gettext("Download failed")})
@@ -46,6 +46,6 @@ defmodule Brando.Instagram.Admin.InstagramView do
   end
 
   defp check_status(%{status: :download_failed} = i, {a, r, d, f}) do
-    {i, {a, r, d, f + 1}}
+    {i, {a, r, d, f <> ~s(<a href="redownload/#{i.id}">Last ned #{i.instagram_id} på nytt</a><br />)}}
   end
 end

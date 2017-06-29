@@ -19,6 +19,7 @@ defmodule Brando.Instagram.Admin.InstagramController do
       from i in InstagramImage,
         select: %{
           id: i.id,
+          instagram_id: i.instagram_id,
           status: i.status,
           image: i.image,
           created_time: i.created_time

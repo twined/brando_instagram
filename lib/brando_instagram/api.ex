@@ -177,6 +177,8 @@ defmodule Brando.Instagram.API do
         Enum.map(result, fn({k, v}) -> {String.to_atom(k), v} end)
       {:error, :invalid, _} ->
         body
+      {:error, :invalid} ->
+        body
       {:error, errors} ->
         {:error, errors}
     end

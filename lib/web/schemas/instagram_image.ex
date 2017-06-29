@@ -138,10 +138,22 @@ defmodule Brando.InstagramImage do
     |> List.first
   end
 
+  def redownload_image(image) do
+    params =
+      image
+      |> download_image
+      |> create_image_sizes
+
+    update(image, params)
+  end
+
   defp download_image(%{"url_original" => url} = image) do
     case @http_lib.get(url) do
       {:ok, %{body: _, status_code: 404}} ->
         Logger.error(gettext("Instagram: Instagram API error. Download failed.\nURL: %{url}", url: url))
+        Map.merge(image, %{"image" => nil, "status" => :download_failed})
+      {:ok, %{body: {:error, :invalid}, status_code: 200}} ->
+        Logger.error(gettext("Instagram: Instagram INVALID error. Download failed.\nURL: %{url}", url: url))
         Map.merge(image, %{"image" => nil, "status" => :download_failed})
       {:ok, %{body: body, status_code: 200}} ->
         media_path = Brando.config(:media_path)
