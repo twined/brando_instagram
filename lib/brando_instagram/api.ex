@@ -75,7 +75,7 @@ defmodule Brando.Instagram.API do
 
       Enum.each images, fn(image) ->
         unless image.instagram_id in latest_images do
-          Logger.error "==> Instagram: Downloading #{image.instagram_id}"
+          Logger.debug "==> Instagram: Downloading #{image.instagram_id}"
           {:ok, _} = InstagramImage.store_image(image)
           # lets be nice and wait between storing images
           :timer.sleep(Instagram.config(:sleep))
@@ -99,7 +99,7 @@ defmodule Brando.Instagram.API do
 
       Enum.each images, fn(image) ->
         unless image.instagram_id in latest_images do
-          Logger.error "==> Instagram: Downloading #{image.instagram_id}"
+          Logger.debug "==> Instagram: Downloading #{image.instagram_id}"
           {:ok, _} = InstagramImage.store_image(image)
           # lets be nice and wait between storing images
           :timer.sleep(Instagram.config(:sleep))
@@ -157,8 +157,7 @@ defmodule Brando.Instagram.API do
 
   defp check_for_failed_downloads() do
     for failed <- InstagramImage.get_failed_downloads() do
-      require Logger
-      Logger.error "--> trying to refetch #{failed.instagram_id}"
+      Logger.debug "==> Trying to refetch #{failed.instagram_id}"
       InstagramImage.redownload_image(failed)
       :timer.sleep(Instagram.config(:sleep))
     end
