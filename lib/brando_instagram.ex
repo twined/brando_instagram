@@ -20,7 +20,7 @@ defmodule Brando.Instagram do
     * `auto_approve`: Set `approved` to `true` on grabbed images.
     * `query`: What to query.
       * `{:user, "your_name"} - polls for `your_name`'s images.
-      * `{:tags, ["tag1", "tag2"]} - polls `tag1` and `tag2`
+      * `{:tag, "tag"} - polls `tag`
   """
 
   @doc false

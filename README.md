@@ -97,49 +97,22 @@ $(() => {
 });
 ```
 
-## Instagram setup
-
-  * Login to your developer account.
-  * Click "Manage Clients"
-  * Click "Register a New Client"
-  * Fill out form, add "http://localhost" to "Valid redirect URIs"
-  * Click the security pane
-  * Disable the "Disable implicit OAuth" choice
-
-  * Click "Manage" on your newly created client
-  * Click the "Sandbox"-pane
-  * Add the account name of the Instagram account you want to track
-
-  * Login to the developer section of the Instagram account you want to track
-  * Click "Sandbox Invites"-tab at the top
-  * Fill in information, if needed
-  * Accept sandbox invitation from your dev account
-
 ## Configuration options
 
 These are the options for `config :brando, Brando.Instagram`:
 
-  * `client_id`: Your instagram client id. Find this in the developer section.
-  * `use_token`: Use access_token instead of client_id for API calls.
-  * `username`: Your instagram username. Needed for access_token retrieval.
-  * `password`: Your instagram password. Needed for access_token retrieval.
-  * `token_file`: Where to store your access_token.
   * `interval`: How often we poll for new images
   * `auto_approve`: Set `approved` to `true` on grabbed images.
   * `query`: What to query.
     * `{:user, "your_name"}` - polls for `your_name`'s images.
-    * `{:tags, ["tag1", "tag2"]}` - polls `tag1` and `tag2`
+    * `{:tag, "tag1"}` - polls for `tag1`
 
 Default config:
 
 ```elixir
 config :brando, Brando.Instagram,
   auto_approve: true,
-  client_id: "",
-  username: "",
-  password: "",
   query: {:user, "dummy_username"},
-  token_path: Path.join(~w(priv tokens instagram)),
   interval: 1_000 * 60 * 60,
   sleep: 5000,
   sizes: %{

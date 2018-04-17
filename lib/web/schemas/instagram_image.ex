@@ -43,7 +43,7 @@ defmodule Brando.InstagramImage do
   @spec changeset(t, :create, Keyword.t | Options.t) :: t
   def changeset(schema, :create, params) do
     status =
-      case params["image"] do
+      case params.image do
         nil -> :download_failed
         _   -> @cfg[:auto_approve] && :approved || :rejected
       end
@@ -67,7 +67,7 @@ defmodule Brando.InstagramImage do
   @spec changeset(t, :update, %{binary => term} | %{atom => term}) :: t
   def changeset(schema, :update, params) do
     status =
-      if schema.status == :download_failed && params["image"] do
+      if schema.status == :download_failed && params.image do
         @cfg[:auto_approve] && :approved || :rejected
       else
         schema.status
@@ -82,10 +82,9 @@ defmodule Brando.InstagramImage do
   Create a changeset for the schema by passing `params`.
   If not valid, return errors from changeset
   """
-  @spec create(%{binary => term} | %{atom => term}) :: {:ok, t} | {:error, Keyword.t}
+  @spec create(%{atom => term}) :: {:ok, t} | {:error, Keyword.t}
   def create(params) do
-    image = Brando.repo.get_by(__MODULE__, instagram_id: params["instagram_id"] ||
-                                                         params[:instagram_id])
+    image = Brando.repo.get_by(__MODULE__, instagram_id: params.instagram_id)
     if image do
       image
       |> changeset(:update, params)
@@ -105,56 +104,48 @@ defmodule Brando.InstagramImage do
   @spec update(t, %{binary => term} | %{atom => term}) :: {:ok, t} | {:error, Keyword.t}
   def update(schema, params) do
     schema_changeset = changeset(schema, :update, params)
-    if schema_changeset.valid? do
-      {:ok, Brando.repo.update!(schema_changeset)}
-    else
-      {:error, schema_changeset.errors}
-    end
+    Brando.repo.update(schema_changeset)
   end
 
   @doc """
   Takes a map provided from the API and transforms it to a map we can
   use to store in the DB.
   """
-  @spec store_image(%{binary => term}) :: {:ok, t} | {:error, Keyword.t}
-  def store_image(%{"id" => instagram_id, "caption" => caption, "user" => user,
-                    "images" => %{"thumbnail" => %{"url" => thumb},
-                    "standard_resolution" => %{"url" => org}}} = image) do
-
+  @spec store_image(%{atom => term}) :: {:ok, t} | {:error, Keyword.t}
+  def store_image(image) do
     image
-    |> Map.merge(%{"username" => user["username"],
-                   "instagram_id" => instagram_id,
-                   "caption" => caption && caption["text"] || "",
-                   "url_thumbnail" => strip_q(thumb), "url_original" => strip_q(org)})
-    |> Map.drop(["images", "id"])
     |> download_image
     |> create_image_sizes
     |> create
   end
 
-  defp strip_q(url) do
-    url
-    |> String.split("?")
-    |> List.first
-  end
-
   def redownload_image(image) do
-    params =
+    cs =
       image
       |> download_image
       |> create_image_sizes
+      |> Ecto.Changeset.change
 
-    update(image, params)
+    status =
+      if Ecto.Changeset.get_field(cs, :status) == :download_failed && Ecto.Changeset.get_field(cs, :image) do
+        @cfg[:auto_approve] && :approved || :rejected
+      else
+        image.status
+      end
+
+    cs
+    |> Ecto.Changeset.put_change(:status, status)
+    |> Brando.repo.update()
   end
 
-  defp download_image(%{"url_original" => url} = image) do
+  defp download_image(%{url_original: url} = image) do
     case @http_lib.get(url) do
       {:ok, %{body: _, status_code: 404}} ->
         Logger.error(gettext("Instagram: Instagram API error. Download failed.\nURL: %{url}", url: url))
-        Map.merge(image, %{"image" => nil, "status" => :download_failed})
+        Map.merge(image, %{image: nil, status: :download_failed})
       {:ok, %{body: {:error, :invalid}, status_code: 200}} ->
         Logger.error(gettext("Instagram: Instagram INVALID error. Download failed.\nURL: %{url}", url: url))
-        Map.merge(image, %{"image" => nil, "status" => :download_failed})
+        Map.merge(image, %{image: nil, status: :download_failed})
       {:ok, %{body: body, status_code: 200}} ->
         media_path = Brando.config(:media_path)
         instagram_path = Instagram.config(:upload_path)
@@ -162,20 +153,20 @@ defmodule Brando.InstagramImage do
         File.mkdir_p!(path)
         File.write!(Path.join([path, Path.basename(url)]), body)
         image_field = Map.put(%Brando.Type.Image{}, :path, Path.join([instagram_path, Path.basename(url)]))
-        Map.put(image, "image", image_field)
+        Map.put(image, :image, image_field)
       {:error, err} ->
         {:error, err}
     end
   end
 
-  defp create_image_sizes(%{"image" => nil} = image_schema) do
+  defp create_image_sizes(%{image: nil} = image_schema) do
     image_schema
   end
 
   defp create_image_sizes(image_schema) do
     sizes_cfg = Brando.Instagram.config(:sizes)
     if sizes_cfg != nil do
-      image_field = image_schema["image"]
+      image_field = image_schema.image
       media_path = Brando.config(:media_path)
 
       full_path = Path.join([media_path, image_field.path])
@@ -191,7 +182,7 @@ defmodule Brando.InstagramImage do
       end
 
       image_field = Map.put(image_field, :sizes, Enum.into(sizes, %{}))
-      Map.put(image_schema, "image", image_field)
+      Map.put(image_schema, :image, image_field)
     else
       image_schema
     end

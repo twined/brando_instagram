@@ -8,10 +8,8 @@ defmodule Brando.Instagram.Server do
   require Logger
 
   alias Brando.Instagram
-  alias Brando.Instagram.AccessToken
   alias Brando.Instagram.API
   alias Brando.Instagram.Server.State
-  alias Brando.InstagramImage
 
   # Public
   @doc false
@@ -21,17 +19,12 @@ defmodule Brando.Instagram.Server do
 
   @doc false
   def init(_) do
-    token = AccessToken.load_token()
-    filter = InstagramImage.get_last_created_time()
-
     send(self(), :poll)
     {:ok, timer} = :timer.send_interval(Instagram.config(:interval), :poll)
 
     state =
       %State{}
       |> Map.put(:timer, timer)
-      |> Map.put(:filter, filter)
-      |> Map.put(:access_token, token)
       |> Map.put(:query, Instagram.config(:query))
 
     Logger.info("==> Brando.Instagram.Server initialized")
@@ -49,17 +42,11 @@ defmodule Brando.Instagram.Server do
     GenServer.call(__MODULE__, :state)
   end
 
-  @doc false
-  def refresh_token() do
-    GenServer.call(__MODULE__, :refresh_token)
-  end
-
   # Private
   @doc false
   def handle_info(:poll, %State{} = state) do
     try do
-      {:ok, new_filter} = API.query(state)
-      state = Map.put(state, :filter, new_filter)
+      :ok = API.query(state)
       {:noreply, state}
     catch
       :exit, err ->
@@ -81,12 +68,6 @@ defmodule Brando.Instagram.Server do
   @doc false
   def handle_call(:state, _from, state) do
     {:reply, state, state}
-  end
-
-  @doc false
-  def handle_call(:refresh_token, _from, state) do
-    Logger.error("% Refreshing token")
-    {:noreply, state}
   end
 
   @doc false
