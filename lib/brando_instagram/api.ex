@@ -33,9 +33,7 @@ defmodule Brando.Instagram.API do
   Get images for `username` by `min_id`.
   """
   def images_for_user(username) do
-    response = @http_lib.get(
-      "#{@url_base}/#{username}/" # <> "&min_id=#{min_id}"
-    )
+    response = @http_lib.get("#{@url_base}/#{username}/")
 
     case response do
       {:ok, %{body: body, status_code: 200}} ->
@@ -52,9 +50,7 @@ defmodule Brando.Instagram.API do
   Get images for `tag`
   """
   def images_for_tag(tag) do
-    response = @http_lib.get(
-      "#{@url_base}/tags/#{tag}/media/recent"
-    )
+    response = @http_lib.get("#{@url_base}/explore/tags/#{tag}/")
 
     case response do
       {:ok, %{body: body, status_code: 200}} ->
@@ -70,11 +66,24 @@ defmodule Brando.Instagram.API do
   @doc """
   Store each image in `data` when we have tag.
   """
-  def parse_images_for_tag([data: data, meta: _meta, pagination: _pagination]) do
-    Enum.each data, fn(image) ->
-      InstagramImage.store_image(image)
-      # lets be nice and wait between each image stored.
-      :timer.sleep(Instagram.config(:sleep))
+  def parse_images_for_tag(data) do
+    with [json] <- Regex.run(~r/>window\._sharedData = (.*);</, data, capture: :all_but_first),
+         {:ok, s} <- Poison.decode(json),
+         {:ok, images} <- parse_images_for_tag_from_map(s) do
+      # Grab 20 latest images from DB and filter against data
+      latest_images = InstagramImage.get_20_latest() || []
+
+      Enum.each images, fn(image) ->
+        unless image.instagram_id in latest_images do
+          Logger.error "==> Instagram: Downloading #{image.instagram_id}"
+          {:ok, _} = InstagramImage.store_image(image)
+          # lets be nice and wait between storing images
+          :timer.sleep(Instagram.config(:sleep))
+        end
+      end
+    else
+      _ ->
+        Logger.error "Instagram/parse_images_for_tag: No usable json found"
     end
   end
 
@@ -90,8 +99,9 @@ defmodule Brando.Instagram.API do
 
       Enum.each images, fn(image) ->
         unless image.instagram_id in latest_images do
-          InstagramImage.store_image(image)
-          # lets be nice and wait 5 seconds between storing images
+          Logger.error "==> Instagram: Downloading #{image.instagram_id}"
+          {:ok, _} = InstagramImage.store_image(image)
+          # lets be nice and wait between storing images
           :timer.sleep(Instagram.config(:sleep))
         end
       end
@@ -118,9 +128,27 @@ defmodule Brando.Instagram.API do
     {:ok, images}
   end
 
+  defp parse_images_for_tag_from_map(%{"entry_data" => %{"TagPage" => [%{"graphql" => %{"hashtag" => %{"edge_hashtag_to_media" => %{"edges" => data}}}}]}}) do
+    images = Enum.map(data, fn (entry) ->
+      node = entry["node"]
+      %{
+        url_original: node["display_url"],
+        url_thumbnail: node["thumbnail_src"],
+        instagram_id: "#{node["id"]}_#{node["owner"]["id"]}",
+        link: get_link(node),
+        created_time: to_string(node["taken_at_timestamp"]),
+        type: convert_type(node["__typename"]),
+        username: "__empty_username__",
+        caption: get_caption(node)
+      }
+    end)
+    {:ok, images}
+  end
+
   defp convert_type("GraphSidecar"), do: "carousel"
   defp convert_type("GraphVideo"), do: "video"
   defp convert_type("GraphImage"), do: "image"
+  defp convert_type(_), do: "image"
 
   defp get_caption(%{"edge_media_to_caption" => %{"edges" => [%{"node" => %{"text" => caption}}]}}), do: caption
   defp get_caption(_), do: ""
