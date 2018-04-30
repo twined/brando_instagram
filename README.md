@@ -10,7 +10,7 @@ Add brando_instagram to your list of dependencies in `mix.exs`:
     def deps do
       [
         {:brando, github: "twined/brando"},
-+       {:brando_instagram, github: "twined/brando_instagram"}
++       {:brando_instagram, github: "twined/brando_instagram", branch: "develop"}
       ]
     end
 ```
@@ -22,24 +22,6 @@ Install migrations and frontend files:
 Run migrations
 
     $ mix ecto.migrate
-
-Add to your `web/router.ex`:
-
-```diff
-
-    defmodule MyApp.Router do
-      use MyApp.Web, :router
-      # ...
-+     import Brando.Instagram.Routes.Admin
-
-      scope "/admin", as: :admin do
-        pipe_through :admin
-        dashboard_routes   "/"
-        user_routes        "/users"
-+       instagram_routes   "/instagram"
-      end
-    end
-```
 
 Add to your `lib/my_app.ex`:
 
@@ -61,42 +43,6 @@ Add to your `lib/my_app.ex`:
 +     Brando.Registry.register(Brando.Instagram)
 ```
 
-Add to your `web/static/css/app.scss`:
-
-```diff
-  @import "includes/colorbox";
-  @import "includes/cookielaw";
-  @import "includes/dropdown";
-  @import "includes/nav";
-+ @import "includes/instagram";
-```
-
-Add to your `web/static/css/custom/brando.custom.scss`
-
-```diff
-+ @import
-+   "includes/instagram"
-```
-
-`instagram.js` is copied to your `web/static/js/admin` directory, and needs to be initialized.
-
-Edit `js/admin/custom.js`:
-
-```javascript
-'use strict';
-
-import $ from 'jquery';
-import Instagram from './instagram';
-
-$(() => {
-  switch ($('body').attr('data-script')) {
-    case 'instagram-index':
-      Instagram.setup();
-    break;
-  }
-});
-```
-
 ## Configuration options
 
 These are the options for `config :brando, Brando.Instagram`:
@@ -112,12 +58,13 @@ Default config:
 ```elixir
 config :brando, Brando.Instagram,
   auto_approve: true,
-  query: {:user, "dummy_username"},
+  query: {:user, "username"},
   interval: 1_000 * 60 * 60,
-  sleep: 5000,
+  sleep: 5528,
   sizes: %{
-    "large" =>  %{"size" => "640", "quality" => 100},
-    "thumb" =>  %{"size" => "150x150", "quality" => 100, "crop" => true}
+    "large" =>  %{"size" => "640", "quality" => 80},
+    "largecrop" =>  %{"size" => "640x640", "quality" => 80, "crop" => true},
+    "thumb" =>  %{"size" => "150x150", "quality" => 70, "crop" => true}
   },
   upload_path: Path.join("images", "instagram")
 ```

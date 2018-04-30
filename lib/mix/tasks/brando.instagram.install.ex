@@ -11,12 +11,7 @@ defmodule Mix.Tasks.BrandoInstagram.Install do
   @new [
     # Migration files
     {:eex,  "templates/brando.instagram.install/priv/repo/migrations/migration_instagramimages.exs",
-            "priv/repo/migrations/timestamp_create_instagram_instagramimages.exs"},
-
-    # Backend js
-    {:copy, "templates/brando.instagram.install/assets/js/admin/instagram.js",
-            "assets/js/admin/instagram.js"},
-
+            "priv/repo/migrations/timestamp_create_instagram_instagramimages.exs"}
   ]
 
   @static []

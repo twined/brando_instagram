@@ -22,6 +22,8 @@ defmodule Brando.Instagram do
       * `{:user, "your_name"} - polls for `your_name`'s images.
       * `{:tag, "tag"} - polls `tag`
   """
+  alias Brando.InstagramImage
+  import Ecto.Query
 
   @doc false
   def start_link do
@@ -41,5 +43,19 @@ defmodule Brando.Instagram do
   def config(key) do
     cfg = Application.get_env(:brando, Brando.Instagram)
     Keyword.get(cfg, key)
+  end
+
+  @doc """
+  Get `count` latest images
+  """
+  def get_latest(count \\ 6) do
+    query =
+      from i in InstagramImage,
+        limit: ^count,
+        order_by: [desc: i.created_time]
+
+    images = Brando.repo.all(query)
+
+    {:ok, images}
   end
 end
