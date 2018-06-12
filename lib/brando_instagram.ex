@@ -48,10 +48,12 @@ defmodule Brando.Instagram do
   @doc """
   Get `count` latest images
   """
-  def get_latest(count \\ 6) do
+  def get_latest(count \\ 12, page \\ 1) do
+    page = is_binary(page) && String.to_integer(page) || page
     query =
       from i in InstagramImage,
         limit: ^count,
+        offset: ^((page-1) * count),
         order_by: [desc: i.created_time]
 
     images = Brando.repo.all(query)
