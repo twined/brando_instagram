@@ -261,9 +261,7 @@ defmodule Brando.Integration.Instagram do
   end
 
   # Mock image
-  def get(url) do
-    require Logger
-    Logger.error inspect url
+  def get(_) do
     body = File.read!(@img_fixture)
     {:ok, %{body: body, status_code: 200}}
   end
