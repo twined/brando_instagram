@@ -28,8 +28,8 @@ defmodule BrandoInstagram.Mixfile do
   end
 
   defp deps do
-    [{:phoenix, "~> 1.3.0-rc", override: true, optional: true},
-     {:phoenix_ecto, "~> 3.2"},
+    [{:phoenix, "~> 1.4", optional: true},
+     {:phoenix_ecto, "~> 4.0"},
      {:gettext, "~> 0.11"},
 
      # Test dependencies
@@ -40,7 +40,7 @@ defmodule BrandoInstagram.Mixfile do
 
      # Documentation dependencies
      {:ex_doc, "~> 0.12", only: :docs},
-     {:inch_ex, "~> 0.5", only: :docs}
+     {:inch_ex, "~> 1.0", only: :docs}
     ]
   end
 
