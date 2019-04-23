@@ -245,24 +245,4 @@ defmodule Brando.InstagramImage do
       id -> Enum.at(String.split(id, "_"), 0)
     end
   end
-
-  #
-  # Meta
-
-  use Brando.Meta.Schema, [
-    singular: gettext("instagram image"),
-    plural: gettext("instagram images"),
-    repr: &("#{&1.id} | #{&1.caption}"),
-    fields: [
-      id: gettext("ID"),
-      instagram_id: gettext("Instagram ID"),
-      type: gettext("Type"),
-      caption: gettext("Caption"),
-      link: gettext("Link"),
-      url_original: gettext("Image URL"),
-      url_thumbnail: gettext("Thumbnail URL"),
-      created_time: gettext("Created"),
-      status: gettext("Status"),
-    ]
-  ]
 end
